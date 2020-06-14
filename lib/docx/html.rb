@@ -5,7 +5,7 @@ require 'docx/html/version'
 
 module Docx
   class Document
-    def to_html(options={})
+    def to_html2(options={})
       HtmlWriter.new.write do |html|
         html.doctype options[:doctype] || 5
         html.head do |head|
@@ -18,9 +18,9 @@ module Docx
         end
       end
     end
-    
+
     private
-    
+
     def inline_content_for(text_run)
       inline_content = text_run.text
       inline_content = wrap(inline_content, :em)     if text_run.italicized?
@@ -29,7 +29,7 @@ module Docx
         {style: 'text-decoration: underline;'})      if text_run.underlined?
       inline_content
     end
-    
+
     def wrap(text, tag, attrs=nil)
       html = "<#{tag.to_s}"
       unless attrs.nil?
